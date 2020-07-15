@@ -1,1 +1,18 @@
 @import './node_modules/bootstrap/scss/bootstrap.scss';
+
+.form {
+    width: 500px;
+    border: 2px solid rgb(200, 200, 200);
+    border-radius: 5px;
+    padding: 50px 20px;
+    margin: 20px auto;
+}
+
+.button {
+    margin: auto;
+}
+
+.table {
+    margin: 20px auto;
+    width: 600px;
+}

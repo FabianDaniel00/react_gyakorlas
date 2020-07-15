@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { Table, Form } from 'react-bootstrap';
+import './App.scss';
+import { Table, Form, Button } from 'react-bootstrap';
 
-class TableHeader extends Component {
-    render () {
-        return (
-            <thead>
-                <tr>
-                    <td>#</td>
-                    <td>Name</td>
-                    <td>Super Power</td>
-                </tr>
-            </thead>
-        );
-    }
+const TableHeader = () => {
+    return (
+        <thead>
+            <tr>
+                <td>#</td>
+                <td>Name</td>
+                <td>Super Power</td>
+                <td>Remove</td>
+            </tr>
+        </thead>
+    );
 }
 
 const TableBody = (props) => {
@@ -45,16 +45,19 @@ class Delete extends Component {
 
     handleSubmit = (event) => {
         const { ertek } = this.state;
-        this.props.removeCharacter(ertek - 1);
+        const { removeCharacter } = this.props;
+        removeCharacter(ertek - 1);
         this.setState(this.initialState);
         event.preventDefault();
     }
     render () {
         const { ertek } = this.state;
         return (
-            <Form onSubmit={ this.handleSubmit }>
-                <input type = "text" onChange={this.handleChange} value={ ertek } placeholder="For example: '1'" />
-                <input type="submit" value="Delete" />
+            <Form className="form" onSubmit={ this.handleSubmit }>
+                <Form.Group>
+                <Form.Control type = "text" onChange={this.handleChange} value={ ertek } placeholder="For example: '1'" />
+                </Form.Group>
+                <Button className="button" type="submit">Delete</Button>
             </Form>
         );
     }
@@ -65,7 +68,7 @@ class CustomTable extends Component {
         const { characters, removeCharacter } = this.props;
         return (
             <div>
-                <Table striped bordered hover>
+                <Table className="table" striped bordered hover>
                     <TableHeader />
                     <TableBody characterData = { characters } removeCharacter = { removeCharacter } />
                 </Table>
