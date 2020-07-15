@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.scss';
 import { Form, Button } from 'react-bootstrap';
 
-class CustomForm extends Component {
+class Add extends Component {
     initialState = {
         name: "",
         super_power: ""
@@ -15,9 +15,9 @@ class CustomForm extends Component {
         this.setState({ [name]: value });
     }
 
-    submitForm = (event) => {
-        const { handleSubmit } = this.props;
-        handleSubmit(this.state);
+    submitAdd = (event) => {
+        const { handleAdd } = this.props;
+        handleAdd(this.state);
         this.setState(this.initialState);
         event.preventDefault();
     }
@@ -25,7 +25,7 @@ class CustomForm extends Component {
     render () {
         const { name, super_power } = this.state;
         return (
-            <Form className="form" onSubmit={ this.submitForm }>
+            <Form className="form" onSubmit={ this.submitAdd }>
                 <Form.Group>
                     <Form.Label>Name:</Form.Label>
                     <Form.Control type="text" name="name" value={ name } onChange={this.handleChange} />
@@ -38,4 +38,4 @@ class CustomForm extends Component {
     }
 }
 
-export default CustomForm;
+export default Add;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.scss';
-import { Table, Form, Button } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 
 const TableHeader = () => {
     return (
@@ -31,38 +31,6 @@ const TableBody = (props) => {
     return <tbody>{ rows }</tbody>
 }
 
-class Delete extends Component {
-    initialState = {
-        ertek: ""
-    }
-
-    state = this.initialState;
-
-    handleChange = (event) => {
-        const { value } = event.target;
-        this.setState({ ertek: value });
-    }
-
-    handleSubmit = (event) => {
-        const { ertek } = this.state;
-        const { removeCharacter } = this.props;
-        removeCharacter(ertek - 1);
-        this.setState(this.initialState);
-        event.preventDefault();
-    }
-    render () {
-        const { ertek } = this.state;
-        return (
-            <Form className="form" onSubmit={ this.handleSubmit }>
-                <Form.Group>
-                <Form.Control type = "text" onChange={this.handleChange} value={ ertek } placeholder="For example: '1'" />
-                </Form.Group>
-                <Button className="button" type="submit">Delete</Button>
-            </Form>
-        );
-    }
-}
-
 class CustomTable extends Component {
     render () {
         const { characters, removeCharacter } = this.props;
@@ -72,7 +40,6 @@ class CustomTable extends Component {
                     <TableHeader />
                     <TableBody characterData = { characters } removeCharacter = { removeCharacter } />
                 </Table>
-                <Delete removeCharacter = { removeCharacter } />
             </div>
         );
     }

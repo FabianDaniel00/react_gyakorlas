@@ -1,46 +1,33 @@
 import React, { Component } from 'react';
 import './App.scss';
-import { Alert } from 'react-bootstrap';
 import CustomTable from './Table';
-import CustomForm from './Form';
+import Add from './Add';
 import Api from './Api';
+import CustomModal from './Modal';
+import Delete from './Delete';
 
 class App extends Component {
   state = {
     characters: [],
-    count: 0
+    count: 0,
   }
-
-  // CustomAlert = () => {
-  //   const { count } = this.state;
-  //   return (
-  //     <Alert variant="primary">
-  //       The number of Superheroes is { count }.
-  //     </Alert>
-  //   )
-  // }
 
   removeCharacter = (index) => {
     const { characters, count } = this.state;
     this.setState({
       characters: characters.filter((character, i) => {
         return i !== index;
-      }), count: ((count > 0 && index + 1 <= count && index !== -1) ? count - 1 : count)
-    })
-    if (count > 0 && index + 1 <= count && index !== -1) {
-      return (
-        <Alert variant="primary">
-          The number of Superheroes is { count }.
-        </Alert>
-      )
+      }),
+      count: ((count > 0 && index + 1 <= count && index !== -1 && index + 1 > 0) ? count - 1 : count)
+    });
+    if (index + 1 < 1 || index + 1 > count) {
+      return <CustomModal count = { count } />
     }
   }
 
-  handleSubmit = (character) => {
+  handleAdd = (character) => {
     const { characters, count } = this.state;
-    this.setState({characters: [...characters, character]});
-    this.setState({count: count + 1 })
-    console.log(count + 1);
+    this.setState({characters: [...characters, character], count: count + 1});
   }
 
   render () {
@@ -48,7 +35,8 @@ class App extends Component {
     return (
       <div>
         <CustomTable characters = { characters } removeCharacter = { this.removeCharacter } />
-        <CustomForm handleSubmit = { this.handleSubmit } />
+        <Delete removeCharacter = { this.removeCharacter } />
+        <Add handleAdd = { this.handleAdd } />
         <Api />
       </div>
     )
