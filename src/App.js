@@ -10,6 +10,7 @@ class App extends Component {
   state = {
     characters: [],
     count: 0,
+    popup: false
   }
 
   removeCharacter = (index) => {
@@ -21,7 +22,7 @@ class App extends Component {
       count: ((count > 0 && index + 1 <= count && index !== -1 && index + 1 > 0) ? count - 1 : count)
     });
     if (index + 1 < 1 || index + 1 > count) {
-      return <CustomModal count = { count } />
+      this.setState({ popup: true });
     }
   }
 
@@ -30,16 +31,23 @@ class App extends Component {
     this.setState({characters: [...characters, character], count: count + 1});
   }
 
+  setFalse = () => {
+    this.setState({ popup: false });
+  }
+
   render () {
-    const { characters } = this.state;
+    const { characters, count, popup } = this.state;
     return (
       <div>
         <CustomTable characters = { characters } removeCharacter = { this.removeCharacter } />
         <Delete removeCharacter = { this.removeCharacter } />
         <Add handleAdd = { this.handleAdd } />
         <Api />
+        { popup
+        && <CustomModal count = { count } popup = { this.setFalse } />
+        }
       </div>
-    )
+    );
   }
 }
 
